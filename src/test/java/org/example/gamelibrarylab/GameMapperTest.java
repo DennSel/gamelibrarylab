@@ -12,6 +12,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 @ExtendWith(MockitoExtension.class)
 public class GameMapperTest {
 
@@ -55,7 +57,15 @@ public class GameMapperTest {
     // ============ toEntity() tests ============
     @Test
     void toEntity_withValidDto_returnsGameWithAllFields() {
-        // TODO: Implement
+        Game result = gameMapper.toEntity(testCreateDTO);
+
+        assertNotNull(result);
+        assertEquals(testCreateDTO.title(), result.getTitle());
+        assertEquals(testCreateDTO.description(), result.getDescription());
+        assertEquals(testCreateDTO.releaseDate(), result.getReleaseDate());
+        assertEquals(testCreateDTO.developer(), result.getDeveloper());
+        assertEquals(testCreateDTO.publisher(), result.getPublisher());
+        assertNull(result.getId());
     }
 
     @Test
