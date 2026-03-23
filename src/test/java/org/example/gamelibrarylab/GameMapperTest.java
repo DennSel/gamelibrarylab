@@ -1,6 +1,7 @@
 package org.example.gamelibrarylab;
 
 import org.example.gamelibrarylab.dto.CreateGameDTO;
+import org.example.gamelibrarylab.dto.GameDTO;
 import org.example.gamelibrarylab.dto.UpdateGameDTO;
 import org.example.gamelibrarylab.entity.Game;
 import org.example.gamelibrarylab.mapper.GameMapper;
@@ -73,6 +74,11 @@ public class GameMapperTest {
         // TODO: Implement
     }
 
+    @Test
+    void toEntity_withEmptyString_handlesCorrectly() {
+        // TODO: Implement
+    }
+
     // ============ toDTO() tests =============
 
     @Test
@@ -82,24 +88,76 @@ public class GameMapperTest {
 
     @Test
     void toDTO_withNullEntity_throwsNullPointerException() {
-        // TODO: Implement
+        assertThrows(NullPointerException.class, () -> {
+            gameMapper.toDTO(null);
+        });
+    }
+
+    @Test
+    void toDTO_mapsIdCorrectly() {
+        Game gameWithId = new Game();
+        gameWithId.setId(999L);
+        gameWithId.setTitle("Test Game");
+        gameWithId.setDescription("Test");
+        gameWithId.setReleaseDate(LocalDate.now());
+        gameWithId.setDeveloper("Dev");
+        gameWithId.setPublisher("Pub");
+
+        GameDTO result = gameMapper.toDTO(gameWithId);
+
+        assertEquals(999L, result.id());
     }
 
     // ============ updateEntity() tests ========
 
     @Test
     void updateEntity_withValidDto_updatesAllFields() {
-        // TODO: Implement
+        // Arrange
+        Game game = new Game();
+        game.setId(1L);
+        game.setTitle("Old Title");
+
+        // Act
+        gameMapper.updateEntity(testUpdateDTO, game);
+
+        // Assert
+        assertEquals(testUpdateDTO.title(), game.getTitle());
+        assertEquals(testUpdateDTO.description(), game.getDescription());
+        assertEquals(testUpdateDTO.releaseDate(), game.getReleaseDate());
+        assertEquals(testUpdateDTO.developer(), game.getDeveloper());
+        assertEquals(testUpdateDTO.publisher(), game.getPublisher());
     }
 
     @Test
     void updateEntity_withNullDto_throwsNullPointerException() {
-        // TODO: Implement
+        Game game = new Game();
+
+        assertThrows(NullPointerException.class, () -> {
+            gameMapper.updateEntity(null, game);
+        });
     }
 
     @Test
     void updateEntity_withNullEntity_throwsNullPointerException() {
-        // TODO: Implement
+        assertThrows(NullPointerException.class, () -> {
+            gameMapper.updateEntity(testUpdateDTO, null);
+        });
+    }
+
+    @Test
+    void updateEntity_preservesExistingId() {
+        Game game = new Game();
+        game.setId(1337L);
+        game.setTitle("Old Title");
+        game.setDescription("Old Desc");
+        game.setReleaseDate(LocalDate.of(2020, 1, 1));
+        game.setDeveloper("Old Dev");
+        game.setPublisher("Old Pub");
+
+        gameMapper.updateEntity(testUpdateDTO, game);
+
+        assertEquals(1337L, game.getId());
+        assertEquals(testUpdateDTO.title(), game.getTitle());
     }
 
 
