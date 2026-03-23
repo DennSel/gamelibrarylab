@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${game.title}">Title</title>
+</head>
+<body>
+<h1 th:text="${game.title}">Title</h1>
+
+<p><strong>Developer:</strong> <span th:text="${game.developer}">Developer</span></p>
+<p><strong>Publisher:</strong> <span th:text="${game.publisher}">Publisher</span></p>
+<p><strong>Release date:</strong> <span th:text="${game.releaseDate}">2022-01-01</span></p>
+<p><strong>Description:</strong></p>
+<p th:text="${game.description}">Description...</p>
+
+<a th:href="@{/games}">← Back to list</a>
+</body>
+</html>
