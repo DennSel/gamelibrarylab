@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Game Library</title>
+</head>
+<body>
+<h1>Game Library</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Developer</th>
+        <th>Release date</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="game : ${games}">
+        <td th:text="${game.title}">Title</td>
+        <td th:text="${game.developer}">Developer</td>
+        <td th:text="${game.releaseDate}">2022-01-01</td>
+        <td>
+            <a th:href="@{/games/{id}(id=${game.id})}">Show</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a th:href="@{/games/new}">Add new game</a>
+</body>
+</html>
