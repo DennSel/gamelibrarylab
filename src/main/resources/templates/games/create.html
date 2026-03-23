@@ -5,18 +5,18 @@
     <title>Add Game</title>
 </head>
 <body>
-<h1>Add New Game</h1>
+    <h1>Add New Game</h1>
 
-<form th:action="@{/games}" th:object="${createGameDTO}" method="post">
-    <input th:field="*{title}" placeholder="Title" required /><br>
-    <input th:field="*{description}" placeholder="Description" required /><br>
-    <input th:field="*{releaseDate}" type="date" required /><br>
-    <input th:field="*{developer}" placeholder="Developer" required /><br>
-    <input th:field="*{publisher}" placeholder="Publisher" required /><br>
-    <span th:errors="*{title}" style="color:red"></span><br>
-    <button type="submit">Save</button>
-</form>
+    <form th:action="@{/games}" th:object="${createGameDTO}" method="post">
+        <input th:field="*{title}" placeholder="Title" required /><br>
+        <input th:field="*{description}" placeholder="Description" required /><br>
+        <input th:field="*{releaseDate}" type="date" required /><br>
+        <input th:field="*{developer}" placeholder="Developer" required /><br>
+        <input th:field="*{publisher}" placeholder="Publisher" required /><br>
+        <span th:errors="*{title}" style="color:red"></span><br>
+        <button type="submit">Save</button>
+    </form>
 
-<a th:href="@{/games}">Back to list</a>
+    <a th:href="@{/games}">Back to list</a>
 </body>
 </html>
