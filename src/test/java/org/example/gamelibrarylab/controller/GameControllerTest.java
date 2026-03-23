@@ -10,8 +10,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -33,6 +33,20 @@ public class GameControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("games/list"))
                 .andExpect(model().attributeExists("games"));
+    }
+
+    @Test
+    void createWithInvalidDataReturnsForm() throws Exception {
+        mvc.perform(post("/games")
+                        .param("title", "")
+                        .param("description", "")
+                        .param("releaseDate", "")
+                        .param("developer", "")
+                        .param("publisher", ""))
+                .andExpect(status().isOk())
+                .andExpect(view().name("create"))
+                .andExpect(model().attributeExists("createGameDTO"))
+                .andExpect(model().hasErrors());
     }
 }
 
