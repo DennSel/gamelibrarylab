@@ -26,14 +26,14 @@ public class GameController {
     public String list(Model model) {
         List<GameDTO> games = service.getAllGames();
         model.addAttribute("games", games);
-        return "games/list";
+        return "list";
     }
 
     @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Model model) {
         GameDTO game = service.getGameById(id);
         model.addAttribute("game", game);
-        return "games/detail";
+        return "detail";
     }
 
     @GetMapping("/new")
@@ -41,13 +41,13 @@ public class GameController {
         model.addAttribute("createGameDTO", new CreateGameDTO(
                 "", "", LocalDate.now(), "", ""
         ));
-        return "games/create";
+        return "create";
     }
 
     @PostMapping
     public String create(@Valid @ModelAttribute CreateGameDTO dto,
                          BindingResult result) {
-        if (result.hasErrors()) return "games/create";
+        if (result.hasErrors()) return "create";
         service.createGame(dto);
         return "redirect:/games";
     }
@@ -57,7 +57,7 @@ public class GameController {
         @ExceptionHandler(ResourceNotFoundException.class)
         public String handleNotFound(Model m, Exception e) {
             m.addAttribute("message", e.getMessage());
-            return "templates/error/404";
+            return "error/404";
         }
     }
 }

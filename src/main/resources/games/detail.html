@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
     <head>
         <meta charset="UTF-8">
         <title th:text="${game.title}">Title</title>
@@ -13,6 +13,6 @@
         <p><strong>Description:</strong></p>
         <p th:text="${game.description}">Description...</p>
 
-        <a th:href="@{/templates/games}">← Back to list</a>
+        <a th:href="@{/games}">← Back to list</a>
     </body>
 </html>

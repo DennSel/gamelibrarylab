@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Game</title>
+</head>
+<body>
+    <h1>Add New Game</h1>
+
+    <form th:action="@{/games}" th:object="${createGameDTO}" method="post">
+        <div>
+            <input th:field="*{title}" placeholder="Title" required />
+            <span th:errors="*{title}" style="color:red"></span>
+        </div>
+        <div>
+            <input th:field="*{description}" placeholder="Description" required />
+            <span th:errors="*{description}" style="color:red"></span>
+        </div>
+        <div>
+            <input th:field="*{releaseDate}" type="date" required />
+            <span th:errors="*{releaseDate}" style="color:red"></span>
+        </div>
+        <div>
+            <input th:field="*{developer}" placeholder="Developer" required />
+            <span th:errors="*{developer}" style="color:red"></span>
+        </div>
+        <div>
+            <input th:field="*{publisher}" placeholder="Publisher" required />
+            <span th:errors="*{publisher}" style="color:red"></span>
+        </div>
+        <br>
+        <button type="submit">Save</button>
+    </form>
+
+    <a th:href="@{/games}">Back to list</a>
+</body>
+</html>
