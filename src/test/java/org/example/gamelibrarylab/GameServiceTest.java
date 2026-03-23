@@ -18,8 +18,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -136,7 +135,15 @@ class GameServiceTest {
 
     @Test
     void getAllGames_withEmptyDb_returnsEmptyList() {
-        // TODO: Implement
+        when(repository.findAll()).thenReturn(Arrays.asList());
+
+        List<GameDTO> result = gameService.getAllGames();
+
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+
+        verify(repository).findAll();
+        verify(mapper, never()).toDTO(any(Game.class));
     }
 
     // ============ getGameById() tests =========
