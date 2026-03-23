@@ -7,7 +7,7 @@
 <body>
     <h1>Add New Game</h1>
 
-    <form th:action="@{/games}" th:object="${createGameDTO}" method="post">
+    <form th:action="@{/templates/games}" th:object="${createGameDTO}" method="post">
         <input th:field="*{title}" placeholder="Title" required /><br>
         <input th:field="*{description}" placeholder="Description" required /><br>
         <input th:field="*{releaseDate}" type="date" required /><br>
@@ -17,6 +17,6 @@
         <button type="submit">Save</button>
     </form>
 
-    <a th:href="@{/games}">Back to list</a>
+    <a th:href="@{/templates/games}">Back to list</a>
 </body>
 </html>

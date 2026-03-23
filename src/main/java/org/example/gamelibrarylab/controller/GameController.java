@@ -57,7 +57,7 @@ public class GameController {
         @ExceptionHandler(ResourceNotFoundException.class)
         public String handleNotFound(Model m, Exception e) {
             m.addAttribute("message", e.getMessage());
-            return "error/404";
+            return "templates/error/404";
         }
     }
 }
