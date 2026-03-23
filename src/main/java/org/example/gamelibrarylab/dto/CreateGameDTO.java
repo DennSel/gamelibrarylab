@@ -10,5 +10,6 @@ public record CreateGameDTO(
         @NotBlank String title,
         @NotBlank String publisher,
         @NotNull @PastOrPresent LocalDate releaseDate,
-        @NotBlank String developer
+        @NotBlank String developer,
+        @NotBlank String description
         ) {}

@@ -3,10 +3,7 @@ package org.example.gamelibrarylab.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 
@@ -32,4 +29,43 @@ public class Game {
 
     @NotBlank
     private String publisher;
+
+    public void setTitle(@NotBlank String title) {
+    }
+
+    public void setDescription(@NotBlank String description) {
+    }
+
+    public void setReleaseDate(@NotNull @PastOrPresent LocalDate localDate) {
+    }
+
+    public void setDeveloper(@NotBlank String developer) {
+    }
+
+    public void setPublisher(@NotBlank String publisher) {
+    }
+
+    public Long getId() {
+        return 0L;
+    }
+
+    public String getTitle() {
+        return "";
+    }
+
+    public String getDescription() {
+        return "";
+    }
+
+    public String getReleaseDate() {
+        return "";
+    }
+
+    public String getPublisher() {
+        return "";
+    }
+
+    public String getDeveloper() {
+        return "";
+    }
 }
