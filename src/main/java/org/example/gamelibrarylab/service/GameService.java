@@ -34,4 +34,18 @@ public class GameService {
                 ));
         return mapper.toDTO(game);
     }
+
+    public GameDTO createGame(CreateGameDTO dto) {
+        if (repo.existsByTitleAndDeveloper(dto.title(), dto.developer())) {
+            throw new IllegalStateException(
+                    "A game with title '" + dto.title() +
+                            "' from '" + dto.developer() +
+                            "' already exists"
+            );
+        }
+
+        Game game = mapper.toEntity(dto);
+        Game saved = repo.save(game);
+        return mapper.toDTO(saved);
+    }
 }
