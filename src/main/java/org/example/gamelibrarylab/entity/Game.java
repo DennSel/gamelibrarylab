@@ -68,4 +68,7 @@ public class Game {
     public String getDeveloper() {
         return "";
     }
+
+    public void setId(long l) {
+    }
 }

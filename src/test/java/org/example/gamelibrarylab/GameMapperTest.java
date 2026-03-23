@@ -10,6 +10,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
+
 @ExtendWith(MockitoExtension.class)
 public class GameMapperTest {
 
@@ -22,7 +24,32 @@ public class GameMapperTest {
 
     @BeforeEach
     void setUp() {
-        // TODO: Initialize test objects
+        // Create test: Game
+        testGame = new Game();
+        testGame.setId(1L);
+        testGame.setTitle("Scat Cat: The Cat's Scatting Adventure");
+        testGame.setDescription("Adventure of a scatting cat");
+        testGame.setReleaseDate(LocalDate.of(2000, 1, 1));
+        testGame.setDeveloper("Developer");
+        testGame.setPublisher("Publisher");
+
+        // Create test: CreateGameDTO
+        testCreateDTO = new CreateGameDTO(
+                "Elden Ring",
+                "Action RPG",
+                LocalDate.of(2022, 2, 25),
+                "FromSoftware",
+                "Bandai Namco Entertainment"
+        );
+
+        // Create test: UpdateGameDTO
+        testUpdateDTO = new UpdateGameDTO(
+                "Super Mario Odyssey",
+                "Platformer adventure",
+                LocalDate.of(2017, 10, 27),
+                "Nintendo NEW",
+                "Nintendo"
+        );
     }
 
     // ============ toEntity() tests ============
