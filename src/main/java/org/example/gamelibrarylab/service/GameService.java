@@ -2,6 +2,7 @@ package org.example.gamelibrarylab.service;
 
 import org.example.gamelibrarylab.dto.CreateGameDTO;
 import org.example.gamelibrarylab.dto.GameDTO;
+import org.example.gamelibrarylab.dto.UpdateGameDTO;
 import org.example.gamelibrarylab.entity.Game;
 import org.example.gamelibrarylab.exception.ResourceNotFoundException;
 import org.example.gamelibrarylab.mapper.GameMapper;
@@ -48,4 +49,16 @@ public class GameService {
         Game saved = repo.save(game);
         return mapper.toDTO(saved);
     }
+
+    public GameDTO updateGame(Long id, UpdateGameDTO dto) {
+        Game game = repo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Game with ID " + id + " not found"
+                ));
+
+        mapper.updateEntity(dto, game);
+        Game updated = repo.save(game);
+        return mapper.toDTO(updated);
+    }
+
 }
