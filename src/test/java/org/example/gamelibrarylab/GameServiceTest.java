@@ -18,6 +18,11 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
 @ExtendWith(MockitoExtension.class)
 class GameServiceTest {
 
@@ -111,7 +116,22 @@ class GameServiceTest {
 
     @Test
     void getAllGames_withGamesInDb_returnsListOfGameDTOs() {
-        // TODO: Implement
+        when(repository.findAll()).thenReturn(testGameList);
+        when(mapper.toDTO(any(Game.class))).thenAnswer(invocation -> {
+            Game game = invocation.getArgument(0);
+            return convertToDTO(game);
+        });
+
+        List<GameDTO> result = gameService.getAllGames();
+
+        assertNotNull(result);
+        assertEquals(3, result.size());
+        assertEquals("The Legend of Zelda: Breath of the Wild", result.get(0).title());
+        assertEquals("Elden Ring", result.get(1).title());
+        assertEquals("Super Mario Odyssey", result.get(2).title());
+
+        verify(repository).findAll();
+        verify(mapper, times(3)).toDTO(any(Game.class));
     }
 
     @Test
@@ -165,5 +185,17 @@ class GameServiceTest {
     @Test
     void deleteGame_withInvalidId_throwsResourceNotFoundException() {
         // TODO: Implement
+    }
+
+    // ============ HELPERS ============
+    private GameDTO convertToDTO(Game game) {
+        return new GameDTO(
+                game.getId(),
+                game.getTitle(),
+                game.getDescription(),
+                game.getReleaseDate(),
+                game.getDeveloper(),
+                game.getPublisher()
+        );
     }
 }
