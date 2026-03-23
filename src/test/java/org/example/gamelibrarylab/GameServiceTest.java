@@ -48,7 +48,7 @@ class GameServiceTest {
         testGame = new Game();
         testGame.setId(1L);
         testGame.setTitle("The Legend of Zelda: Breath of the Wild");
-        testGame.setDescription("Ett äventyrsspel i en öppen värld");
+        testGame.setDescription("Open World Adventure Game");
         testGame.setReleaseDate(LocalDate.of(2017, 3, 3));
         testGame.setDeveloper("Nintendo");
         testGame.setPublisher("Nintendo");
@@ -187,7 +187,42 @@ class GameServiceTest {
 
     @Test
     void createGame_withValidDto_returnsGameDTO() {
-        // TODO: Implement
+        Game newGame = new Game();
+        newGame.setId(1L);
+        newGame.setTitle("Elden Ring");
+        newGame.setDescription("Action RPG in a dark fantasy world");
+        newGame.setReleaseDate(LocalDate.of(2022, 2, 25));
+        newGame.setDeveloper("FromSoftware");
+        newGame.setPublisher("Bandai Namco Entertainment");
+
+        GameDTO expectedDTO = new GameDTO(
+                1L,
+                "Elden Ring",
+                "Action RPG in a dark fantasy world",
+                LocalDate.of(2022, 2, 25),
+                "FromSoftware",
+                "Bandai Namco Entertainment"
+        );
+
+        when(repository.existsByTitleAndDeveloper(
+                testCreateDTO.title(),
+                testCreateDTO.developer()
+        )).thenReturn(false);
+
+        when(mapper.toEntity(testCreateDTO)).thenReturn(newGame);
+        when(repository.save(newGame)).thenReturn(newGame);
+        when(mapper.toDTO(newGame)).thenReturn(expectedDTO);
+
+        GameDTO result = gameService.createGame(testCreateDTO);
+
+        assertNotNull(result);
+        assertEquals("Elden Ring", result.title());
+        assertEquals("FromSoftware", result.developer());
+
+        verify(repository).existsByTitleAndDeveloper(testCreateDTO.title(), testCreateDTO.developer());
+        verify(mapper).toEntity(testCreateDTO);
+        verify(repository).save(newGame);
+        verify(mapper).toDTO(newGame);
     }
 
     @Test
