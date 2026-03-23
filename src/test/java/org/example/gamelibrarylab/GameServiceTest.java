@@ -14,6 +14,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
@@ -37,7 +39,72 @@ class GameServiceTest {
 
     @BeforeEach
     void setUp() {
-        // TODO: Initialize test objects
+        testGame = new Game();
+        testGame.setId(1L);
+        testGame.setTitle("The Legend of Zelda: Breath of the Wild");
+        testGame.setDescription("Ett äventyrsspel i en öppen värld");
+        testGame.setReleaseDate(LocalDate.of(2017, 3, 3));
+        testGame.setDeveloper("Nintendo");
+        testGame.setPublisher("Nintendo");
+
+        testGameDTO = new GameDTO(
+                1L,
+                "The Legend of Zelda: Breath of the Wild",
+                "Open World Adventure Game",
+                LocalDate.of(2017, 3, 3),
+                "Nintendo",
+                "Nintendo"
+        );
+
+        testCreateDTO = new CreateGameDTO(
+                "Elden Ring",
+                "Action RPG in a dark fantasy world",
+                LocalDate.of(2022, 2, 25),
+                "FromSoftware",
+                "Bandai Namco Entertainment"
+        );
+
+        testUpdateDTO = new UpdateGameDTO(
+                "Super Mario Odyssey",
+                "Mario's new adventure",
+                LocalDate.of(2017, 10, 27),
+                "Nintendo EPD",
+                "Nintendo"
+        );
+
+        testGameList = Arrays.asList(
+                testGame,
+                createGame(2L, "Elden Ring", "FromSoftware", LocalDate.of(2022, 2, 25)),
+                createGame(3L, "Super Mario Odyssey", "Nintendo", LocalDate.of(2017, 10, 27))
+        );
+
+        testGameDTOList = Arrays.asList(
+                testGameDTO,
+                createGameDTO(2L, "Elden Ring", "FromSoftware"),
+                createGameDTO(3L, "Super Mario Odyssey", "Nintendo")
+        );
+    }
+
+    private Game createGame(Long id, String title, String developer, LocalDate releaseDate) {
+        Game game = new Game();
+        game.setId(id);
+        game.setTitle(title);
+        game.setDescription("Description for " + title);
+        game.setReleaseDate(releaseDate);
+        game.setDeveloper(developer);
+        game.setPublisher(developer + " Publisher");
+        return game;
+    }
+
+    private GameDTO createGameDTO(Long id, String title, String developer) {
+        return new GameDTO(
+                id,
+                title,
+                "Description for " + title,
+                LocalDate.of(2023, 1, 1),
+                developer,
+                developer + " Publisher"
+        );
     }
 
     // ============ getAllGames() tests ============
