@@ -3,6 +3,7 @@ package org.example.gamelibrarylab.controller;
 import jakarta.validation.Valid;
 import org.example.gamelibrarylab.dto.CreateGameDTO;
 import org.example.gamelibrarylab.dto.GameDTO;
+import org.example.gamelibrarylab.exception.ResourceNotFoundException;
 import org.example.gamelibrarylab.service.GameService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,6 +50,15 @@ public class GameController {
         if (result.hasErrors()) return "games/create";
         service.createGame(dto);
         return "redirect:/games";
+    }
+
+    @ControllerAdvice
+    public class GlobalExceptionHandler {
+        @ExceptionHandler(ResourceNotFoundException.class)
+        public String handleNotFound(Model m, Exception e) {
+            m.addAttribute("message", e.getMessage());
+            return "error/404";
+        }
     }
 }
 
