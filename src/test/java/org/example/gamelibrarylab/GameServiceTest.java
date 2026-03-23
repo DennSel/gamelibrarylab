@@ -4,6 +4,7 @@ import org.example.gamelibrarylab.dto.CreateGameDTO;
 import org.example.gamelibrarylab.dto.GameDTO;
 import org.example.gamelibrarylab.dto.UpdateGameDTO;
 import org.example.gamelibrarylab.entity.Game;
+import org.example.gamelibrarylab.exception.ResourceNotFoundException;
 import org.example.gamelibrarylab.mapper.GameMapper;
 import org.example.gamelibrarylab.repository.GameRepository;
 import org.example.gamelibrarylab.service.GameService;
@@ -17,6 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -150,12 +152,35 @@ class GameServiceTest {
 
     @Test
     void getGameById_withValidId_returnsGameDTO() {
-        // TODO: Implement
+        Long gameId = 1L;
+        when(repository.findById(gameId)).thenReturn(Optional.of(testGame));
+        when(mapper.toDTO(testGame)).thenReturn(testGameDTO);
+
+        GameDTO result = gameService.getGameById(gameId);
+
+        assertNotNull(result);
+        assertEquals(1L, result.id());
+        assertEquals("The Legend of Zelda: Breath of the Wild", result.title());
+        assertEquals("Nintendo", result.developer());
+
+        verify(repository).findById(gameId);
+        verify(mapper).toDTO(testGame);
     }
 
     @Test
     void getGameById_withInvalidId_throwsResourceNotFoundException() {
-        // TODO: Implement
+        Long invalidId = 999L;
+        when(repository.findById(invalidId)).thenReturn(Optional.empty());
+
+        ResourceNotFoundException exception = assertThrows(
+                ResourceNotFoundException.class,
+                () -> gameService.getGameById(invalidId)
+        );
+
+        assertEquals("Game with ID " + invalidId + " not found", exception.getMessage());
+
+        verify(repository).findById(invalidId);
+        verify(mapper, never()).toDTO(any());
     }
 
     // ============ createGame() tests =========
