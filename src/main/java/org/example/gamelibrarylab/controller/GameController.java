@@ -51,14 +51,5 @@ public class GameController {
         service.createGame(dto);
         return "redirect:/games";
     }
-
-    @ControllerAdvice
-    public class GlobalExceptionHandler {
-        @ExceptionHandler(ResourceNotFoundException.class)
-        public String handleNotFound(Model m, Exception e) {
-            m.addAttribute("message", e.getMessage());
-            return "error/404";
-        }
-    }
 }
 
