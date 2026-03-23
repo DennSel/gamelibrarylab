@@ -6,7 +6,7 @@ public record GameDTO (
         Long id,
         String title,
         String description,
-        LocalDate publisher,
+        LocalDate releaseDate,
         String developer,
-        String releaseDate
+        String publisher
 ){}

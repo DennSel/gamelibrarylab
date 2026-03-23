@@ -1,33 +1,57 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Game Library</title>
-    </head>
-    <body>
-        <h1>Game Library</h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Library</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-left">
+                <h1>Game Library</h1>
+                <p class="subtitle">Manage your collection</p>
+            </div>
+        </header>
 
-        <table>
-            <thead>
-            <tr>
-                <th>Title</th>
-                <th>Developer</th>
-                <th>Release date</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="game : ${games}">
-                <td th:text="${game.title}">Title</td>
-                <td th:text="${game.developer}">Developer</td>
-                <td th:text="${game.releaseDate}">2022-01-01</td>
-                <td>
-                    <a th:href="@{/games/{id}(id=${game.id})}">Show</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <nav>
+            <a th:href="@{/games}" class="active">All Games</a>
+            <a th:href="@{/games/new}">Add New Game</a>
+        </nav>
 
-        <a th:href="@{/games/new}">Add new game</a>
-    </body>
+        <div class="main-content">
+            <h2>All Games</h2>
+
+            <table th:if="${!#lists.isEmpty(games)}">
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Developer</th>
+                    <th>Release Date</th>
+                    <th>Publisher</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="game : ${games}">
+                    <td th:text="${game.title}">Title</td>
+                    <td th:text="${game.developer}">Developer</td>
+                    <td th:text="${game.releaseDate}">2022-01-01</td>
+                    <td th:text="${game.publisher}">Publisher</td>
+                    <td>
+                        <a th:href="@{/games/{id}(id=${game.id})}" class="btn btn-primary btn-small">View</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="empty-state" th:if="${#lists.isEmpty(games)}">
+                <div class="empty-state-icon">⊘</div>
+                <p>No games found in the library.</p>
+                <a th:href="@{/games/new}" class="btn btn-primary">Add Your First Game</a>
+            </div>
+        </div>
+    </div>
+</body>
 </html>

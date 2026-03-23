@@ -8,8 +8,8 @@ import java.time.LocalDate;
 
 public record CreateGameDTO(
         @NotBlank String title,
-        @NotBlank String publisher,
+        @NotBlank String description,
         @NotNull @PastOrPresent LocalDate releaseDate,
         @NotBlank String developer,
-        @NotBlank String description
+        @NotBlank String publisher
         ) {}

@@ -1,5 +1,6 @@
 package org.example.gamelibrarylab.controller;
 
+import org.example.gamelibrarylab.exception.ResourceNotFoundException;
 import org.example.gamelibrarylab.service.GameService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class GameControllerTest {
 
         mvc.perform(get("/games"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("games/list"))
+                .andExpect(view().name("list"))
                 .andExpect(model().attributeExists("games"));
     }
 
@@ -47,6 +48,17 @@ public class GameControllerTest {
                 .andExpect(view().name("create"))
                 .andExpect(model().attributeExists("createGameDTO"))
                 .andExpect(model().hasErrors());
+    }
+
+    @Test
+    void detailWhenGameNotFoundReturns404() throws Exception {
+        when(service.getGameById(999L))
+                .thenThrow(new ResourceNotFoundException("Game with ID 999 not found"));
+
+        mvc.perform(get("/games/999"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("error/404"))
+                .andExpect(model().attributeExists("message"));
     }
 }
 
