@@ -1,13 +1,15 @@
 package org.example.gamelibrarylab.controller;
 
+import jakarta.validation.Valid;
+import org.example.gamelibrarylab.dto.CreateGameDTO;
 import org.example.gamelibrarylab.dto.GameDTO;
 import org.example.gamelibrarylab.service.GameService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -31,6 +33,22 @@ public class GameController {
         GameDTO game = service.getGameById(id);
         model.addAttribute("game", game);
         return "games/detail";
+    }
+
+    @GetMapping("/new")
+    public String showCreateForm(Model model) {
+        model.addAttribute("createGameDTO", new CreateGameDTO(
+                "", "", LocalDate.now(), "", ""
+        ));
+        return "games/create";
+    }
+
+    @PostMapping
+    public String create(@Valid @ModelAttribute CreateGameDTO dto,
+                         BindingResult result) {
+        if (result.hasErrors()) return "games/create";
+        service.createGame(dto);
+        return "redirect:/games";
     }
 }
 
