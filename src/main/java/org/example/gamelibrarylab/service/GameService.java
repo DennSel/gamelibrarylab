@@ -61,4 +61,13 @@ public class GameService {
         return mapper.toDTO(updated);
     }
 
+    public void deleteGame(Long id) {
+        if (!repo.existsById(id)) {
+            throw new ResourceNotFoundException(
+                    "Game with ID " + id + " not found"
+            );
+        }
+        repo.deleteById(id);
+    }
+
 }
