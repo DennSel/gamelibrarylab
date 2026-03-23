@@ -1,7 +1,9 @@
 package org.example.gamelibrarylab.service;
 
+import org.example.gamelibrarylab.dto.CreateGameDTO;
 import org.example.gamelibrarylab.dto.GameDTO;
 import org.example.gamelibrarylab.entity.Game;
+import org.example.gamelibrarylab.exception.ResourceNotFoundException;
 import org.example.gamelibrarylab.mapper.GameMapper;
 import org.example.gamelibrarylab.repository.GameRepository;
 import org.springframework.stereotype.Service;
@@ -23,5 +25,13 @@ public class GameService {
                 .stream()
                 .map(mapper::toDTO)
                 .toList();
+    }
+
+    public GameDTO getGameById(Long id) {
+        Game game = repo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Game with ID " + id + " not found"
+                ));
+        return mapper.toDTO(game);
     }
 }
