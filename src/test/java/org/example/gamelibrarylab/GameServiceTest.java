@@ -227,7 +227,23 @@ class GameServiceTest {
 
     @Test
     void createGame_withDuplicateTitleAndDeveloper_throwsIllegalStateException() {
-        // TODO: Implement
+        when(repository.existsByTitleAndDeveloper(
+                testCreateDTO.title(),
+                testCreateDTO.developer()
+        )).thenReturn(true);
+
+        IllegalStateException exception = assertThrows(
+                IllegalStateException.class,
+                () -> gameService.createGame(testCreateDTO)
+        );
+
+        assertTrue(exception.getMessage().contains("Elden Ring"));
+        assertTrue(exception.getMessage().contains("FromSoftware"));
+        assertTrue(exception.getMessage().contains("already exists"));
+
+        verify(repository).existsByTitleAndDeveloper(testCreateDTO.title(), testCreateDTO.developer());
+        verify(repository, never()).save(any());
+        verify(mapper, never()).toEntity(any());
     }
 
     // ============ updateGame() tests (FRIVILLIGT) ============
