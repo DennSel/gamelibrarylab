@@ -262,12 +262,31 @@ class GameServiceTest {
 
     @Test
     void deleteGame_withValidId_deletesGame() {
-        // TODO: Implement
+        Long gameId = 1L;
+        when(repository.existsById(gameId)).thenReturn(true);
+        doNothing().when(repository).deleteById(gameId);
+
+        gameService.deleteGame(gameId);
+
+        verify(repository).existsById(gameId);
+        verify(repository).deleteById(gameId);
     }
+
 
     @Test
     void deleteGame_withInvalidId_throwsResourceNotFoundException() {
-        // TODO: Implement
+        Long invalidId = 999L;
+        when(repository.existsById(invalidId)).thenReturn(false);
+
+        ResourceNotFoundException exception = assertThrows(
+                ResourceNotFoundException.class,
+                () -> gameService.deleteGame(invalidId)
+        );
+
+        assertEquals("Game with ID " + invalidId + " not found", exception.getMessage());
+
+        verify(repository).existsById(invalidId);
+        verify(repository, never()).deleteById(any());
     }
 
     // ============ HELPERS ============
