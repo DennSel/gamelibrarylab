@@ -23,9 +23,16 @@ public class GameController {
     }
 
     @GetMapping
-    public String list(Model model) {
-        List<GameDTO> games = service.getAllGames();
+    public String list(@RequestParam(required = false) String query, Model model) {
+        List<GameDTO> games;
+        if (query != null && !query.isBlank()) {
+            games = service.filterGames(query);
+        } else {
+            games = service.getAllGames();
+        }
+
         model.addAttribute("games", games);
+        model.addAttribute("query", query);
         return "list";
     }
 
