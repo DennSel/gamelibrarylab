@@ -192,6 +192,13 @@ td {
     color: var(--text-primary);
 }
 
+.actions-cell {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    white-space: nowrap;
+}
+
 tbody tr {
     transition: all 0.2s ease;
 }
