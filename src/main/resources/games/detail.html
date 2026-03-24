@@ -35,6 +35,10 @@
             </div>
 
             <div class="actions">
+                <a th:href="@{/games/{id}/edit(id=${game.id})}" class="btn btn-primary">Edit Game</a>
+                <form th:action="@{/games/{id}/delete(id=${game.id})}" method="post" class="delete-form" onsubmit="return confirm('Are you sure you want to delete this game?');">
+                    <button type="submit" class="btn btn-danger">Delete Game</button>
+                </form>
                 <a th:href="@{/games}" class="btn btn-secondary">Back to List</a>
             </div>
         </div>

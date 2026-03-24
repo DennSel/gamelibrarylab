@@ -3,7 +3,7 @@ package org.example.gamelibrarylab.controller;
 import jakarta.validation.Valid;
 import org.example.gamelibrarylab.dto.CreateGameDTO;
 import org.example.gamelibrarylab.dto.GameDTO;
-import org.example.gamelibrarylab.exception.ResourceNotFoundException;
+import org.example.gamelibrarylab.dto.UpdateGameDTO;
 import org.example.gamelibrarylab.service.GameService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,6 +49,35 @@ public class GameController {
                          BindingResult result) {
         if (result.hasErrors()) return "create";
         service.createGame(dto);
+        return "redirect:/games";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        GameDTO game = service.getGameById(id);
+        model.addAttribute("updateGameDTO", new UpdateGameDTO(
+                game.title(),
+                game.description(),
+                game.releaseDate(),
+                game.developer(),
+                game.publisher()
+        ));
+        model.addAttribute("gameId", id);
+        return "edit";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String update(@PathVariable Long id,
+                         @Valid @ModelAttribute UpdateGameDTO dto,
+                         BindingResult result) {
+        if (result.hasErrors()) return "edit";
+        service.updateGame(id, dto);
+        return "redirect:/games/{id}";
+    }
+
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable Long id) {
+        service.deleteGame(id);
         return "redirect:/games";
     }
 }
