@@ -11,4 +11,10 @@ public class GlobalExceptionHandler {
         m.addAttribute("message", e.getMessage());
         return "error/404";
     }
+
+    @ExceptionHandler(DuplicateGameException.class)
+    public String handleDuplicate(Model m, DuplicateGameException e) {
+        m.addAttribute("error", e.getMessage());
+        return "create";
+    }
 }

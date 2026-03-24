@@ -4,6 +4,7 @@ import org.example.gamelibrarylab.dto.CreateGameDTO;
 import org.example.gamelibrarylab.dto.GameDTO;
 import org.example.gamelibrarylab.dto.UpdateGameDTO;
 import org.example.gamelibrarylab.entity.Game;
+import org.example.gamelibrarylab.exception.DuplicateGameException;
 import org.example.gamelibrarylab.exception.ResourceNotFoundException;
 import org.example.gamelibrarylab.mapper.GameMapper;
 import org.example.gamelibrarylab.repository.GameRepository;
@@ -41,7 +42,7 @@ public class GameService {
 
     public GameDTO createGame(CreateGameDTO dto) {
         if (repo.existsByTitleAndDeveloper(dto.title(), dto.developer())) {
-            throw new IllegalStateException(
+            throw new DuplicateGameException(
                     "A game with title '" + dto.title() +
                             "' from '" + dto.developer() +
                             "' already exists"
