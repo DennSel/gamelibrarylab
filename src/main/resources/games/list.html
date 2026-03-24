@@ -24,14 +24,20 @@
             <h2>All Games</h2>
 
             <form th:action="@{/games}" method="get" class="search-form">
-                <input
-                        type="text"
-                        name="query"
-                        placeholder="Search by title or developer..."
-                        th:value="${query}"
-                >
-                <button type="submit">Search</button>
-                <a th:href="@{/games}" class="btn-clear">Clear</a>
+                <div class="search-input-wrapper">
+                    <span class="search-icon">🔍</span>
+                    <input
+                            type="text"
+                            name="query"
+                            placeholder="Search by title or developer..."
+                            th:value="${query}"
+                            class="search-input"
+                    >
+                    <button type="submit" class="btn-search">Search</button>
+                </div>
+                <a th:href="@{/games}" class="search-clear" th:if="${query != null && !query.isEmpty()}">
+                    ✕ Clear search
+                </a>
             </form>
 
             <table th:if="${!#lists.isEmpty(games)}">
