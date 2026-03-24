@@ -8,6 +8,9 @@ import org.example.gamelibrarylab.exception.ResourceNotFoundException;
 import org.example.gamelibrarylab.mapper.GameMapper;
 import org.example.gamelibrarylab.repository.GameRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -82,6 +85,24 @@ public class GameService {
         return games.stream()
                 .map(mapper::toDTO)
                 .toList();
+    }
+
+    public Page<GameDTO> getAllGamesPaginated(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Game> gamePage = repo.findAll(pageable);
+        return gamePage.map(mapper::toDTO);
+    }
+
+    public Page<GameDTO> filterGamesPaginated(String query, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        if (query == null || query.isBlank()) {
+            Page<Game> gamePage = repo.findAll(pageable);
+            return gamePage.map(mapper::toDTO);
+        }
+
+        Page<Game> gamePage = repo.findByTitleContainingIgnoreCase(query, pageable);
+        return gamePage.map(mapper::toDTO);
     }
 
 }
