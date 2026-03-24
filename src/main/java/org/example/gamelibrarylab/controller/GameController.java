@@ -5,13 +5,13 @@ import org.example.gamelibrarylab.dto.CreateGameDTO;
 import org.example.gamelibrarylab.dto.GameDTO;
 import org.example.gamelibrarylab.dto.UpdateGameDTO;
 import org.example.gamelibrarylab.service.GameService;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Controller
 @RequestMapping("/games")
@@ -23,16 +23,28 @@ public class GameController {
     }
 
     @GetMapping
-    public String list(@RequestParam(required = false) String query, Model model) {
-        List<GameDTO> games;
+    public String list(
+            @RequestParam(required = false) String query,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model
+    ) {
+        Page<GameDTO> gamePage;
+
         if (query != null && !query.isBlank()) {
-            games = service.filterGames(query);
+            gamePage = service.filterGamesPaginated(query, page, size);
         } else {
-            games = service.getAllGames();
+            gamePage = service.getAllGamesPaginated(page, size);
         }
 
-        model.addAttribute("games", games);
+        model.addAttribute("games", gamePage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", gamePage.getTotalPages());
+        model.addAttribute("totalItems", gamePage.getTotalElements());
+        model.addAttribute("hasNext", gamePage.hasNext());
+        model.addAttribute("hasPrevious", gamePage.hasPrevious());
         model.addAttribute("query", query);
+
         return "list";
     }
 
