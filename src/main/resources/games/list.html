@@ -39,8 +39,12 @@
                     <td th:text="${game.developer}">Developer</td>
                     <td th:text="${game.releaseDate}">2022-01-01</td>
                     <td th:text="${game.publisher}">Publisher</td>
-                    <td>
+                    <td class="actions-cell">
                         <a th:href="@{/games/{id}(id=${game.id})}" class="btn btn-primary btn-small">View</a>
+                        <a th:href="@{/games/{id}/edit(id=${game.id})}" class="btn btn-secondary btn-small">Edit</a>
+                        <form th:action="@{/games/{id}/delete(id=${game.id})}" method="post" class="delete-form" onsubmit="return confirm('Are you sure you want to delete this game?');">
+                            <button type="submit" class="btn btn-danger btn-small">Delete</button>
+                        </form>
                     </td>
                 </tr>
                 </tbody>

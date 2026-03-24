@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Game - Game Library</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-left">
+                <h1>Game Library</h1>
+                <p class="subtitle">Edit game</p>
+            </div>
+        </header>
+
+        <nav>
+            <a th:href="@{/games}">Back to All Games</a>
+        </nav>
+
+        <div class="main-content">
+            <h2>Edit Game</h2>
+
+            <div class="form-container">
+                <form th:action="@{/games/{id}/edit(id=${gameId})}" th:object="${updateGameDTO}" method="post">
+                    <div class="form-group">
+                        <label for="title">Game Title *</label>
+                        <input
+                            th:field="*{title}"
+                            id="title"
+                            placeholder="Enter the game title"
+                            required />
+                        <span th:errors="*{title}" class="error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description *</label>
+                        <textarea
+                            th:field="*{description}"
+                            id="description"
+                            placeholder="Describe the game..."
+                            required></textarea>
+                        <span th:errors="*{description}" class="error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="releaseDate">Release Date *</label>
+                        <input
+                            th:field="*{releaseDate}"
+                            id="releaseDate"
+                            type="date"
+                            required />
+                        <span th:errors="*{releaseDate}" class="error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="developer">Developer *</label>
+                        <input
+                            th:field="*{developer}"
+                            id="developer"
+                            placeholder="Enter the developer name"
+                            required />
+                        <span th:errors="*{developer}" class="error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="publisher">Publisher *</label>
+                        <input
+                            th:field="*{publisher}"
+                            id="publisher"
+                            placeholder="Enter the publisher name"
+                            required />
+                        <span th:errors="*{publisher}" class="error"></span>
+                    </div>
+
+                    <div class="actions">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <a th:href="@{/games/{id}(id=${gameId})}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
