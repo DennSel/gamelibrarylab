@@ -71,19 +71,43 @@ public class GameMapperTest {
 
     @Test
     void toEntity_withNullDto_throwsNullPointerException() {
-        // TODO: Implement
+        assertThrows(NullPointerException.class, () -> {
+            gameMapper.toEntity(null);
+        });
     }
 
     @Test
     void toEntity_withEmptyString_handlesCorrectly() {
-        // TODO: Implement
+        CreateGameDTO emptyDto = new CreateGameDTO(
+                "",
+                "",
+                LocalDate.now(),
+                "",
+                ""
+        );
+
+        Game result = gameMapper.toEntity(emptyDto);
+
+        assertNotNull(result);
+        assertEquals("", result.getTitle());
+        assertEquals("", result.getDescription());
+        assertEquals("", result.getDeveloper());
+        assertEquals("", result.getPublisher());
     }
 
     // ============ toDTO() tests =============
 
     @Test
     void toDTO_withValidGame_returnsDTOWithAllFields() {
-        // TODO: Implement
+        GameDTO result = gameMapper.toDTO(testGame);
+
+        assertNotNull(result);
+        assertEquals(testGame.getId(), result.id());
+        assertEquals(testGame.getTitle(), result.title());
+        assertEquals(testGame.getDescription(), result.description());
+        assertEquals(testGame.getReleaseDate(), result.releaseDate());
+        assertEquals(testGame.getDeveloper(), result.developer());
+        assertEquals(testGame.getPublisher(), result.publisher());
     }
 
     @Test

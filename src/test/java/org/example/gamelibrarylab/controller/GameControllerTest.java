@@ -6,6 +6,8 @@ import org.example.gamelibrarylab.service.GameService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -30,7 +32,8 @@ public class GameControllerTest {
 
     @Test
     void listReturnsCorrectView() throws Exception {
-        when(service.getAllGames()).thenReturn(List.of());
+        Page<GameDTO> emptyPage = new PageImpl<>(List.of());
+        when(service.getAllGamesPaginated(0, 10)).thenReturn(emptyPage);
 
         mvc.perform(get("/games"))
                 .andExpect(status().isOk())

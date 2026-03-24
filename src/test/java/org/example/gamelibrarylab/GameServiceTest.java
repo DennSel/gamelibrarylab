@@ -4,6 +4,7 @@ import org.example.gamelibrarylab.dto.CreateGameDTO;
 import org.example.gamelibrarylab.dto.GameDTO;
 import org.example.gamelibrarylab.dto.UpdateGameDTO;
 import org.example.gamelibrarylab.entity.Game;
+import org.example.gamelibrarylab.exception.DuplicateGameException;
 import org.example.gamelibrarylab.exception.ResourceNotFoundException;
 import org.example.gamelibrarylab.mapper.GameMapper;
 import org.example.gamelibrarylab.repository.GameRepository;
@@ -226,14 +227,14 @@ class GameServiceTest {
     }
 
     @Test
-    void createGame_withDuplicateTitleAndDeveloper_throwsIllegalStateException() {
+    void createGame_withDuplicateTitleAndDeveloper_throwsDuplicateGameException() {
         when(repository.existsByTitleAndDeveloper(
                 testCreateDTO.title(),
                 testCreateDTO.developer()
         )).thenReturn(true);
 
-        IllegalStateException exception = assertThrows(
-                IllegalStateException.class,
+        DuplicateGameException exception = assertThrows(
+                DuplicateGameException.class,
                 () -> gameService.createGame(testCreateDTO)
         );
 
@@ -250,12 +251,35 @@ class GameServiceTest {
 
     @Test
     void updateGame_withValidDto_returnsUpdatedGameDTO() {
-        // TODO: Implement
+        Long gameId = 1L;
+        when(repository.findById(gameId)).thenReturn(Optional.of(testGame));
+        when(repository.save(testGame)).thenReturn(testGame);
+        when(mapper.toDTO(testGame)).thenReturn(testGameDTO);
+
+        GameDTO result = gameService.updateGame(gameId, testUpdateDTO);
+
+        assertNotNull(result);
+        verify(repository).findById(gameId);
+        verify(mapper).updateEntity(testUpdateDTO, testGame);
+        verify(repository).save(testGame);
+        verify(mapper).toDTO(testGame);
     }
 
     @Test
     void updateGame_withInvalidId_throwsResourceNotFoundException() {
-        // TODO: Implement
+        Long invalidId = 999L;
+        when(repository.findById(invalidId)).thenReturn(Optional.empty());
+
+        ResourceNotFoundException exception = assertThrows(
+                ResourceNotFoundException.class,
+                () -> gameService.updateGame(invalidId, testUpdateDTO)
+        );
+
+        assertEquals("Game with ID " + invalidId + " not found", exception.getMessage());
+
+        verify(repository).findById(invalidId);
+        verify(mapper, never()).updateEntity(any(), any());
+        verify(repository, never()).save(any());
     }
 
     // ============ deleteGame() tests (FRIVILLIGT) ============
