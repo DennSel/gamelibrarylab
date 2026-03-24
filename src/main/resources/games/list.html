@@ -91,7 +91,6 @@
                 <span th:if="${i >= currentPage - 2 and i <= currentPage + 2}">
                     <a class="pagination-number"
                        th:classappend="${i == currentPage} ? 'active' : ''"
-                       th:classappend="${i == currentPage} ? 'active' : ''"
                        th:href="@{/games(page=${i}, query=${query})}">
                         <span th:text="${i + 1}">1</span>
                     </a>
