@@ -23,7 +23,7 @@ public class Game {
     private String description;
 
     @NotNull
-    @Past
+    @PastOrPresent
     private LocalDate releaseDate;
 
     @NotBlank
