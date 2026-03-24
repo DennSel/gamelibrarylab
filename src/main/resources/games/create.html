@@ -1,91 +1,91 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Add New Game - Game Library</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="header-left">
-                <h1>Game Library</h1>
-                <p class="subtitle">Add a new game</p>
-            </div>
-        </header>
+<div class="container">
+    <header>
+        <div class="header-left">
+            <h1>Game Library</h1>
+            <p class="subtitle">Add a new game</p>
+        </div>
+    </header>
 
-        <nav>
-            <a th:href="@{/games}">Back to All Games</a>
-            <a th:href="@{/games/new}" class="btn-primary">Add New Game</a>
-        </nav>
+    <nav>
+        <a th:href="@{/games}">Back to All Games</a>
+        <a class="btn-primary" th:href="@{/games/new}">Add New Game</a>
+    </nav>
 
-        <div class="main-content">
-            <h2>Add New Game</h2>
+    <div class="main-content">
+        <h2>Add New Game</h2>
 
-            <div class="form-container">
-                <form th:action="@{/games}" th:object="${createGameDTO}" method="post">
-                    <div class="form-group">
-                        <label for="title">Game Title *</label>
-                        <input
-                            th:field="*{title}"
+        <div class="form-container">
+            <form method="post" th:action="@{/games}" th:object="${createGameDTO}">
+                <div class="form-group">
+                    <label for="title">Game Title *</label>
+                    <input
                             id="title"
                             placeholder="Enter the game title"
-                            required />
-                        <span th:errors="*{title}" class="error"></span>
-                    </div>
+                            required
+                            th:field="*{title}"/>
+                    <span class="error" th:errors="*{title}"></span>
+                </div>
 
-                    <div class="form-group">
-                        <label for="description">Description *</label>
-                        <textarea
-                            th:field="*{description}"
+                <div class="form-group">
+                    <label for="description">Description *</label>
+                    <textarea
                             id="description"
                             placeholder="Describe the game..."
-                            required></textarea>
-                        <span th:errors="*{description}" class="error"></span>
-                    </div>
+                            required
+                            th:field="*{description}"></textarea>
+                    <span class="error" th:errors="*{description}"></span>
+                </div>
 
-                    <div class="form-group">
-                        <label for="releaseDate">Release Date *</label>
-                        <input
-                            th:field="*{releaseDate}"
+                <div class="form-group">
+                    <label for="releaseDate">Release Date *</label>
+                    <input
                             id="releaseDate"
-                            type="date"
-                            required />
-                        <span th:errors="*{releaseDate}" class="error"></span>
-                    </div>
+                            required
+                            th:field="*{releaseDate}"
+                            type="date"/>
+                    <span class="error" th:errors="*{releaseDate}"></span>
+                </div>
 
-                    <div class="form-group">
-                        <label for="developer">Developer *</label>
-                        <input
-                            th:field="*{developer}"
+                <div class="form-group">
+                    <label for="developer">Developer *</label>
+                    <input
                             id="developer"
                             placeholder="Enter the developer name"
-                            required />
-                        <span th:errors="*{developer}" class="error"></span>
-                    </div>
+                            required
+                            th:field="*{developer}"/>
+                    <span class="error" th:errors="*{developer}"></span>
+                </div>
 
-                    <div class="form-group">
-                        <label for="publisher">Publisher *</label>
-                        <input
-                            th:field="*{publisher}"
+                <div class="form-group">
+                    <label for="publisher">Publisher *</label>
+                    <input
                             id="publisher"
                             placeholder="Enter the publisher name"
-                            required />
-                        <span th:errors="*{publisher}" class="error"></span>
-                    </div>
+                            required
+                            th:field="*{publisher}"/>
+                    <span class="error" th:errors="*{publisher}"></span>
+                </div>
 
-                    <div class="actions">
-                        <button type="submit" class="btn btn-primary">Save Game</button>
-                        <a th:href="@{/games}" class="btn btn-secondary">Cancel</a>
-                    </div>
-                </form>
-            </div>
+                <div class="actions">
+                    <button class="btn btn-primary" type="submit">Save Game</button>
+                    <a class="btn btn-secondary" th:href="@{/games}">Cancel</a>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 
-    <script>
-        document.getElementById('releaseDate').valueAsDate = new Date();
-    </script>
+<script>
+    document.getElementById('releaseDate').valueAsDate = new Date();
+</script>
 </body>
 </html>

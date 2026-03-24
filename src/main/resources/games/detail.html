@@ -1,47 +1,48 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title th:text="${game.title} + ' - Game Library'">Game Details</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="header-left">
-                <h1>Game Library</h1>
-                <p class="subtitle" th:text="${game.title}">Game Title</p>
-            </div>
-        </header>
+<div class="container">
+    <header>
+        <div class="header-left">
+            <h1>Game Library</h1>
+            <p class="subtitle" th:text="${game.title}">Game Title</p>
+        </div>
+    </header>
 
-        <nav>
-            <a th:href="@{/games}">Back to All Games</a>
-            <a th:href="@{/games/new}">Add New Game</a>
-        </nav>
+    <nav>
+        <a th:href="@{/games}">Back to All Games</a>
+        <a th:href="@{/games/new}">Add New Game</a>
+    </nav>
 
-        <div class="main-content">
-            <h2 th:text="${game.title}">Game Title</h2>
+    <div class="main-content">
+        <h2 th:text="${game.title}">Game Title</h2>
 
-            <div class="detail-info">
-                <p><strong>Developer:</strong> <span th:text="${game.developer}">Developer</span></p>
-                <p><strong>Publisher:</strong> <span th:text="${game.publisher}">Publisher</span></p>
-                <p><strong>Release Date:</strong> <span th:text="${game.releaseDate}">2022-01-01</span></p>
-            </div>
+        <div class="detail-info">
+            <p><strong>Developer:</strong> <span th:text="${game.developer}">Developer</span></p>
+            <p><strong>Publisher:</strong> <span th:text="${game.publisher}">Publisher</span></p>
+            <p><strong>Release Date:</strong> <span th:text="${game.releaseDate}">2022-01-01</span></p>
+        </div>
 
-            <div class="description">
-                <h3>Description</h3>
-                <p th:text="${game.description}">Description...</p>
-            </div>
+        <div class="description">
+            <h3>Description</h3>
+            <p th:text="${game.description}">Description...</p>
+        </div>
 
-            <div class="actions">
-                <a th:href="@{/games/{id}/edit(id=${game.id})}" class="btn btn-primary">Edit Game</a>
-                <form th:action="@{/games/{id}/delete(id=${game.id})}" method="post" class="delete-form" onsubmit="return confirm('Are you sure you want to delete this game?');">
-                    <button type="submit" class="btn btn-danger">Delete Game</button>
-                </form>
-                <a th:href="@{/games}" class="btn btn-secondary">Back to List</a>
-            </div>
+        <div class="actions">
+            <a class="btn btn-primary" th:href="@{/games/{id}/edit(id=${game.id})}">Edit Game</a>
+            <form class="delete-form" method="post" onsubmit="return confirm('Are you sure you want to delete this game?');"
+                  th:action="@{/games/{id}/delete(id=${game.id})}">
+                <button class="btn btn-danger" type="submit">Delete Game</button>
+            </form>
+            <a class="btn btn-secondary" th:href="@{/games}">Back to List</a>
         </div>
     </div>
+</div>
 </body>
 </html>

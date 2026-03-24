@@ -1,30 +1,30 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Error 404 - Game Library</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-    <div class="container">
-        <div class="main-content error-page">
-            <h1>404</h1>
-            <h2>Page Not Found</h2>
+<div class="container">
+    <div class="main-content error-page">
+        <h1>404</h1>
+        <h2>Page Not Found</h2>
 
-            <div class="error-message" th:if="${message}">
-                <strong>Error:</strong> <span th:text="${message}">Resource not found</span>
-            </div>
+        <div class="error-message" th:if="${message}">
+            <strong>Error:</strong> <span th:text="${message}">Resource not found</span>
+        </div>
 
-            <p style="margin: 20px 0; color: var(--text-secondary);">
-                The game you're looking for doesn't exist in our library.
-            </p>
+        <p style="margin: 20px 0; color: var(--text-secondary);">
+            The game you're looking for doesn't exist in our library.
+        </p>
 
-            <div class="actions">
-                <a th:href="@{/games}" class="btn btn-primary">Browse All Games</a>
-                <a th:href="@{/games/new}" class="btn btn-secondary">Add New Game</a>
-            </div>
+        <div class="actions">
+            <a class="btn btn-primary" th:href="@{/games}">Browse All Games</a>
+            <a class="btn btn-secondary" th:href="@{/games/new}">Add New Game</a>
         </div>
     </div>
+</div>
 </body>
 </html>
