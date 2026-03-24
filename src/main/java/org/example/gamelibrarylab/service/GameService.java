@@ -70,4 +70,18 @@ public class GameService {
         repo.deleteById(id);
     }
 
+    public List<GameDTO> filterGames(String query) {
+        if (query == null || query.isBlank()) {
+            return getAllGames();
+        }
+
+        List<Game> games = repo.findByTitleContainingIgnoreCaseOrDeveloperContainingIgnoreCase(
+                query, query
+        );
+
+        return games.stream()
+                .map(mapper::toDTO)
+                .toList();
+    }
+
 }
