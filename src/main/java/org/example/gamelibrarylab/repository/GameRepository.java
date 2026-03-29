@@ -16,13 +16,11 @@ public interface GameRepository extends ListCrudRepository<Game, Long> {
             String developer
     );
 
-    List<Game> findByTitleContainingIgnoreCaseOrDeveloperContainingIgnoreCase(
-            String title, String developer
+    Page<Game> findByTitleContainingIgnoreCaseOrDeveloperContainingIgnoreCase(
+            String title, String developer, Pageable pageable
     );
 
     Page<Game> findAll(Pageable pageable);
-
-    Page<Game> findByTitleContainingIgnoreCase(String query, Pageable pageable);
 }
 
 

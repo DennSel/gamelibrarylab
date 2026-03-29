@@ -2,11 +2,13 @@
 
 # 🎮 Game Library
 
-**An EXTREMLY simple web application for "managing" game collections**
+**An EXTREMELY simple web application for "managing" game collections**
 
 Built with Spring Boot • MVC • JPA • Thymeleaf
 
 </div>
+
+---
 
 ---
 
@@ -29,6 +31,25 @@ http://localhost:8080
 - **Add games** - Form with validation
 - **Search** - Filter by title/developer
 - **Edit/Delete** - Full CRUD operations
+
+---
+
+## 🎮 Dev Mode
+
+App starts in **dev mode** by default with 15 pre-loaded games!
+
+**Sample games:**
+- The Legend of Zelda: Breath of the Wild
+- Elden Ring
+- Super Mario Odyssey
+- The Witcher 3
+- Minecraft
+- ... and 10 more
+
+**Disable dev mode:**
+```bash
+./mvnw spring-boot:run -Dspring-boot.run.profiles=default
+```
 
 ---
 

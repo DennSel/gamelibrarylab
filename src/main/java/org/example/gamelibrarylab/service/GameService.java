@@ -74,20 +74,6 @@ public class GameService {
         repo.deleteById(id);
     }
 
-    public List<GameDTO> filterGames(String query) {
-        if (query == null || query.isBlank()) {
-            return getAllGames();
-        }
-
-        List<Game> games = repo.findByTitleContainingIgnoreCaseOrDeveloperContainingIgnoreCase(
-                query, query
-        );
-
-        return games.stream()
-                .map(mapper::toDTO)
-                .toList();
-    }
-
     public Page<GameDTO> getAllGamesPaginated(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Game> gamePage = repo.findAll(pageable);
@@ -102,7 +88,9 @@ public class GameService {
             return gamePage.map(mapper::toDTO);
         }
 
-        Page<Game> gamePage = repo.findByTitleContainingIgnoreCase(query, pageable);
+        Page<Game> gamePage = repo.findByTitleContainingIgnoreCaseOrDeveloperContainingIgnoreCase(
+                query, query, pageable
+        );
         return gamePage.map(mapper::toDTO);
     }
 

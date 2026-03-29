@@ -88,8 +88,12 @@ public class GameController {
     @PostMapping("/{id}/edit")
     public String update(@PathVariable Long id,
                          @Valid @ModelAttribute UpdateGameDTO dto,
-                         BindingResult result) {
-        if (result.hasErrors()) return "edit";
+                         BindingResult result,
+                         Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("gameId", id);
+            return "edit";
+        }
         service.updateGame(id, dto);
         return "redirect:/games/{id}";
     }

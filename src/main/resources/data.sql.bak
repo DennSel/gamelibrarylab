@@ -1,0 +1,51 @@
+-- Testdata för paginering (30+ spel)
+-- H2 Database - separera INSERT satser
+
+INSERT INTO game (title, description, release_date, developer, publisher) VALUES
+('The Legend of Zelda: Breath of the Wild', 'An open-world adventure game', '2017-03-03', 'Nintendo', 'Nintendo'),
+('Super Mario Odyssey', 'A 3D platformer game', '2017-10-27', 'Nintendo', 'Nintendo'),
+('Mario Kart 8 Deluxe', 'Racing game', '2017-04-28', 'Nintendo', 'Nintendo'),
+('Super Smash Bros. Ultimate', 'Fighting game', '2018-12-07', 'Nintendo', 'Nintendo'),
+('Animal Crossing: New Horizons', 'Life simulation game', '2020-03-20', 'Nintendo', 'Nintendo');
+
+INSERT INTO game (title, description, release_date, developer, publisher) VALUES
+('Splatoon 2', 'Third-person shooter', '2017-07-21', 'Nintendo', 'Nintendo'),
+('The Legend of Zelda: Tears of the Kingdom', 'Open-world adventure', '2023-05-12', 'Nintendo', 'Nintendo'),
+('Metroid Dread', 'Action-adventure game', '2021-10-08', 'Nintendo', 'Nintendo'),
+('Pokémon Scarlet', 'Open-world RPG', '2022-11-18', 'Game Freak', 'Nintendo'),
+('Xenoblade Chronicles 3', 'Open-world JRPG', '2022-07-29', 'Monolith Soft', 'Nintendo');
+
+INSERT INTO game (title, description, release_date, developer, publisher) VALUES
+('The Witcher 3: Wild Hunt', 'Open-world RPG', '2015-05-19', 'CD Projekt Red', 'CD Projekt'),
+('Cyberpunk 2077', 'Open-world action-adventure', '2020-12-10', 'CD Projekt Red', 'CD Projekt'),
+('The Witcher 2: Assassins of Kings', 'Action RPG', '2011-05-17', 'CD Projekt Red', 'CD Projekt'),
+('The Witcher', 'Action RPG', '2007-10-26', 'CD Projekt Red', 'CD Projekt'),
+('Cyberpunk 2077: Phantom Liberty', 'Expansion pack', '2023-09-26', 'CD Projekt Red', 'CD Projekt');
+
+INSERT INTO game (title, description, release_date, developer, publisher) VALUES
+('Elden Ring', 'Action RPG', '2022-02-25', 'FromSoftware', 'Bandai Namco'),
+('Dark Souls III', 'Action RPG', '2016-04-12', 'FromSoftware', 'Bandai Namco'),
+('Sekiro: Shadows Die Twice', 'Action-adventure', '2019-03-22', 'FromSoftware', 'Activision'),
+('Dark Souls', 'Challenging action RPG', '2011-09-22', 'FromSoftware', 'Bandai Namco'),
+('Dark Souls II', 'Action RPG sequel', '2014-03-11', 'FromSoftware', 'Bandai Namco');
+
+INSERT INTO game (title, description, release_date, developer, publisher) VALUES
+('Bloodborne', 'Action RPG', '2015-03-24', 'FromSoftware', 'Sony'),
+('God of War Ragnarök', 'Action-adventure', '2022-11-09', 'Santa Monica Studio', 'Sony'),
+('Horizon Forbidden West', 'Open-world action RPG', '2022-02-18', 'Guerrilla Games', 'Sony'),
+('The Last of Us Part II', 'Action-adventure survival', '2020-06-19', 'Naughty Dog', 'Sony'),
+('Spider-Man 2', 'Open-world superhero game', '2023-10-20', 'Insomniac Games', 'Sony');
+
+INSERT INTO game (title, description, release_date, developer, publisher) VALUES
+('Ghost of Tsushima', 'Open-world action-adventure', '2020-07-17', 'Sucker Punch', 'Sony'),
+('Halo Infinite', 'First-person shooter', '2021-12-08', '343 Industries', 'Xbox Game Studios'),
+('Forza Horizon 5', 'Open-world racing game', '2021-11-09', 'Playground Games', 'Xbox Game Studios'),
+('Gears 5', 'Third-person shooter', '2019-10-10', 'The Coalition', 'Xbox Game Studios'),
+('Starfield', 'Space exploration RPG', '2023-09-06', 'Bethesda', 'Xbox Game Studios');
+
+INSERT INTO game (title, description, release_date, developer, publisher) VALUES
+('Red Dead Redemption 2', 'Open-world Western', '2018-10-26', 'Rockstar Games', 'Rockstar Games'),
+('Grand Theft Auto V', 'Open-world action-adventure', '2013-09-17', 'Rockstar North', 'Rockstar Games'),
+('Minecraft', 'Sandbox game', '2011-11-18', 'Mojang', 'Mojang Studios'),
+('Stardew Valley', 'Farming simulation', '2016-02-26', 'ConcernedApe', 'ConcernedApe'),
+('Hades', 'Roguelike action dungeon crawler', '2020-09-17', 'Supergiant Games', 'Supergiant Games');
